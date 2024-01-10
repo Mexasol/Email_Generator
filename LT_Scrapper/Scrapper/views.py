@@ -7,6 +7,7 @@ from django.contrib import messages
 import openai
 import json
 import requests
+import os
 
 # for scrappers
 from linkedin_api import Linkedin
@@ -46,7 +47,8 @@ def signin():
 
 def fetch_linkedin(linkedin):
     linkedin_user = linkedin
-    api = Linkedin("alphaprogramming55@gmail.com", "zachaudhary1122")
+    # api = Linkedin("alphaprogramming55@gmail.com", "zachaudhary1122")
+    api = Linkedin(os.environ['LINKEDIN_EMAIL'], os.environ['LINKEDIN_PASSWORD'])
     posts = api.get_profile_posts(linkedin_user)
     num_posts = 2
     content_texts = []
@@ -270,7 +272,7 @@ def prompt_generator(f_name, f_category,f_interests,f_outreach, f_com_tone, f_us
     
     
     # Set your OpenAI API key
-    openai.api_key = ""
+    openai.api_key = "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"
     # Make a request to the OpenAI API
     response = openai.ChatCompletion.create(
         model="gpt-4",
